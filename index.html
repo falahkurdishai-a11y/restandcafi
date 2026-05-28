@@ -27,12 +27,20 @@
         .dark .premium-card:hover { box-shadow: 0 12px 30px rgba(0,0,0,0.4); }
         .light .premium-card:hover { box-shadow: 0 12px 30px rgba(197, 168, 128, 0.15); }
 
+        /* Custom smooth 2-second rotation for the restaurant icon */
+        @keyframes slow-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .animate-slow-spin {
+            animation: slow-spin 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+        }
+
         /* Fixed Clear Slider - Dynamic Layer Direction based on Language */
         .slider-overlay {
             position: absolute;
             inset: 0;
             pointer-events: none;
-            /* Subtly darkening only the bottom to ensure text and dot visibility without altering the original images colors */
             background: linear-gradient(to top, rgba(8, 9, 10, 0.45) 0%, rgba(8, 9, 10, 0) 50%);
         }
         .light .slider-overlay {
@@ -45,8 +53,13 @@
     <!-- Splash Loading Screen -->
     <div id="splash-screen" class="fixed inset-0 z-[100] bg-[#08090a] flex flex-col items-center justify-center transition-opacity duration-700">
         <div class="relative mb-6">
-            <div class="w-20 h-20 rounded-full border-2 border-dashed border-[#C5A880] animate-spin"></div>
-            <div class="absolute inset-0 flex items-center justify-center text-[#C5A880] font-bold text-lg">AI</div>
+            <!-- بازنەکا داهێنەرانە کو دگەل ئایکۆنی دچەرخیت -->
+            <div class="w-24 h-24 rounded-full border-2 border-dashed border-[#C5A880]/30 animate-slow-spin flex items-center justify-center">
+                <!-- ئایکۆنێ ڕێستورانتێ (چەتاڵ و چەقۆ) ب ڕەنگەکێ زێڕینی یێ نایاب -->
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-10 h-10 text-[#C5A880]">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 21v-7.5a.75.75 0 0 1 .75-.75h3a.75.75 0 0 1 .75.75V21m-4.5 0H2.36m11.14 0H18m0 0h3.64m-1.39 0V9.349M3.75 21V9.349m0 0a3.001 3.001 0 0 0 3.75-.615A2.993 2.993 0 0 0 9.75 9.75c.896 0 1.7-.393 2.25-1.016a2.993 2.993 0 0 0 2.25 1.016c.896 0 1.7-.393 2.25-1.015a3.001 3.001 0 0 0 3.75.614m-16.5 0a3.004 3.004 0 0 1-.621-4.72l1.189-1.19A1.5 1.5 0 0 1 5.378 3h13.243a1.5 1.5 0 0 1 1.06.44l1.19 1.189a3 3 0 0 1-.621 4.72M6.75 18h3.5a.75.75 0 0 0 .75-.75V13.5a.75.75 0 0 0-.75-.75h-3a.75.75 0 0 0-.75.75v3.75c0 .414.336.75.75.75Z" />
+                </svg>
+            </div>
         </div>
         <h2 class="text-2xl font-bold tracking-wider text-white">TECH AI MENU</h2>
         <p class="text-xs text-gray-500 mt-2 tracking-widest uppercase">Loading Luxury Experience</p>
@@ -60,29 +73,25 @@
                 <span class="text-lg font-bold tracking-tight text-white dark:text-white light:text-gray-900">TECH <span class="text-[#C5A880]">AI</span></span>
             </div>
             
-            <!-- Actions Right (Theme Toggle + Language + Cart) -->
             <div class="flex items-center space-x-2 relative">
-                
-                <!-- Theme Toggle Button (Day / Night Mode) -->
+                <!-- Theme Toggle Button -->
                 <button onclick="toggleTheme()" class="flex items-center justify-center bg-[#12141c] dark:bg-[#12141c] light:bg-gray-100 border border-gray-800 dark:border-gray-800 light:border-gray-200 hover:border-gray-700 p-2.5 rounded-xl transition shadow-lg w-11 h-11 text-[#C5A880]">
-                    <!-- Sun Icon (Show in Dark Mode) -->
                     <svg id="theme-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 block">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m0 13.5V21M4.22 4.22l1.58 1.58m12.42 12.42l1.58 1.58M3 12h2.25m13.5 0H21m-2.22-7.78l-1.58 1.58M6.06 17.94l-1.58 1.58M12 6.75a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5Z" />
                     </svg>
-                    <!-- Moon Icon (Show in Light Mode) -->
                     <svg id="theme-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5 hidden">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
                     </svg>
                 </button>
                 
-                <!-- Pure Language Icon Button -->
+                <!-- Language Button -->
                 <button onclick="toggleLangDropdown()" class="flex items-center justify-center bg-[#12141c] dark:bg-[#12141c] light:bg-gray-100 border border-gray-800 dark:border-gray-800 light:border-gray-200 hover:border-gray-700 p-2.5 rounded-xl transition shadow-lg w-11 h-11 text-[#C5A880]">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 0 0 8.716-6.747M12 21a9.004 9.004 0 0 1-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9s2.015-9 4.5-9m0 18c-1.192 0-2.29-.441-3.136-1.173M12 3c1.192 0 2.29.441 3.136 1.173m0 0c1.017.886 1.704 2.115 1.918 3.493M15.136 4.173M15.136 4.173A9.01 9.01 0 0 1 21 12c0 1.25-.255 2.44-.716 3.525m-5.148-11.352a9.009 9.009 0 0 1-4.42 1.258m0 0A9.009 9.009 0 0 1 6.31 4.173m0 0A9.01 9.01 0 0 0 3 12c0 1.25.255 2.44.716 3.525m11.705-1.173c.461-1.086.716-2.275.716-3.525c0-1.21-.24-2.366-.674-3.42M3.716 15.525A9.004 9.004 0 0 0 12 21c.846 0 1.66-.117 2.43-.335m-10.714-5.14A9.01 9.01 0 0 1 12 3c1.332 0 2.593.29 3.73.81" />
                     </svg>
                 </button>
 
-                <!-- 3 Languages Dropdown Menu -->
+                <!-- Languages Dropdown Menu -->
                 <div id="lang-dropdown" class="absolute top-13 right-0 bg-[#0c0d12] dark:bg-[#0c0d12] light:bg-white border border-gray-800 dark:border-gray-800 light:border-gray-200 rounded-xl shadow-2xl py-1 w-28 hidden z-[60]">
                     <button onclick="setLanguage('EN')" class="w-full text-left px-4 py-2 text-xs font-semibold hover:bg-[#12141c] dark:hover:bg-[#12141c] light:hover:bg-gray-100 text-gray-300 dark:text-gray-300 light:text-gray-700 hover:text-white dark:hover:text-white light:hover:text-gray-900 transition">English</button>
                     <button onclick="setLanguage('KU')" class="w-full text-left px-4 py-2 text-xs font-semibold hover:bg-[#12141c] dark:hover:bg-[#12141c] light:hover:bg-gray-100 text-gray-300 dark:text-gray-300 light:text-gray-700 hover:text-white dark:hover:text-white light:hover:text-gray-900 transition">کوردی</button>
@@ -100,19 +109,15 @@
         </div>
     </header>
 
-    <!-- Main Banner Slider (Fixed Image Brightness) -->
+    <!-- Main Banner Slider -->
     <section class="max-w-6xl mx-auto px-4 mt-6">
         <div class="relative w-full h-52 sm:h-80 rounded-3xl overflow-hidden shadow-2xl border border-gray-900 dark:border-gray-900 light:border-gray-200">
-            <!-- Clear Overly for perfect contrast without ruining image colors -->
             <div class="slider-overlay"></div>
-            
             <div id="slider-container" class="w-full h-full flex transition-transform duration-500 ease-in-out">
                 <div class="w-full h-full flex-shrink-0 bg-cover bg-center" style="background-image: url('https://i.postimg.cc/XYDQzgSH/photo-2026-05-23-18-37-47.jpg');"></div>
                 <div class="w-full h-full flex-shrink-0 bg-cover bg-center" style="background-image: url('https://i.postimg.cc/yN1sLsKS/photo-2026-05-23-18-45-35.jpg');"></div>
                 <div class="w-full h-full flex-shrink-0 bg-cover bg-center" style="background-image: url('https://i.postimg.cc/gJrdPsn0/photo-2026-05-23-18-45-24.jpg');"></div>
             </div>
-            
-            <!-- Indicators Dots Area -->
             <div id="slider-dots-container" class="absolute bottom-4 left-6 flex space-x-2 z-10">
                 <button onclick="goToSlide(0)" class="slider-dot w-2 h-2 rounded-full bg-white transition-all duration-300"></button>
                 <button onclick="goToSlide(1)" class="slider-dot w-2 h-2 rounded-full bg-white/40 transition-all duration-300"></button>
@@ -158,7 +163,7 @@
             <div class="flex justify-between items-center border-b border-gray-900 dark:border-gray-900 light:border-gray-200 pb-3 mb-5">
                 <h3 id="modal-order-title" class="text-lg font-bold tracking-wide">Complete Order</h3>
                 <button onclick="closeCheckoutModal()" class="text-gray-400 hover:text-white light:text-gray-600 light:hover:text-gray-950 p-1.5 bg-[#12141c] dark:bg-[#12141c] light:bg-gray-100 rounded-lg border border-gray-800 dark:border-gray-800 light:border-gray-200">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
+                    <svg xmlns="http://www.w3.org/2000/xl" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
                 </button>
@@ -233,7 +238,6 @@
             updateCartUI();
         }
 
-        // Adjust Slider dots location dynamically to prevent mirroring breakages
         function adjustSliderLayout(isRTL) {
             const dotsContainer = document.getElementById('slider-dots-container');
             if(isRTL) {
@@ -264,7 +268,6 @@
 
         function updateSlider() {
             const container = document.getElementById('slider-container');
-            // Fixed CSS calculation that handles clean scrolling no matter the site language direction
             const directionMultiplier = document.documentElement.dir === 'rtl' ? 1 : -1;
             container.style.transform = `translateX(${currentSlide * directionMultiplier * 100}%)`;
             
@@ -293,10 +296,14 @@
                     };
                 }).filter(item => item.Item_EN !== "" || item.Item_KU !== "");
 
+                // دێ بۆ ماوەی ٢ چرکە مینت پاشان لاد چیت
                 setTimeout(() => {
                     const splash = document.getElementById('splash-screen');
-                    if(splash) { splash.classList.add('opacity-0'); setTimeout(() => splash.remove(), 700); }
-                }, 500);
+                    if(splash) { 
+                        splash.classList.add('opacity-0'); 
+                        setTimeout(() => splash.remove(), 700); 
+                    }
+                }, 2000);
 
                 updateInterfaceLanguage();
             } catch (error) { console.error(error); }
@@ -324,7 +331,7 @@
 
             adjustSliderLayout(isRTL);
             activeMainFilter = 'all'; activeSubFilter = 'all';
-            currentSlide = 0; // Reset slider position to avoid distortion after layout shift
+            currentSlide = 0; 
             updateInterfaceLanguage();
         }
 
@@ -436,70 +443,11 @@
             updateCartUI();
         }
 
-        function changeQuantity(itemId, amount) {
-            const item = cart.find(item => item.id === itemId); if (!item) return;
-            item.quantity += amount; if (item.quantity <= 0) { cart = cart.filter(i => i.id !== itemId); }
-            updateCartUI();
-        }
-
         function updateCartUI() {
-            document.getElementById('cart-badge').innerText = cart.reduce((sum, item) => sum + item.quantity, 0);
-            const container = document.getElementById('cart-items-container'); container.innerHTML = '';
-            const t = translations[currentLang];
-            const isDark = document.documentElement.classList.contains('dark');
-
-            if (cart.length === 0) {
-                container.innerHTML = `<p class="text-center text-gray-600 py-12 text-xs uppercase tracking-widest">${t.emptyCart}</p>`;
-                document.getElementById('cart-total-price').innerText = "0 IQD"; return;
-            }
-
-            let totalPrice = 0;
-            const isRTL = (currentLang === 'KU' || currentLang === 'AR');
-
-            cart.forEach(item => {
-                totalPrice += item.Price * item.quantity;
-                const name = getItemField(item, 'Item');
-                const row = document.createElement('div');
-                row.className = "flex items-center justify-between bg-[#12141c] dark:bg-[#12141c] light:bg-gray-50 p-2.5 rounded-xl border border-gray-900 dark:border-gray-900 light:border-gray-200";
-                row.innerHTML = `
-                    <div class="flex items-center space-x-2.5 ${isRTL ? 'space-x-reverse' : ''} flex-grow min-w-0">
-                        <img src="${item.Image}" class="w-10 h-10 object-cover rounded-lg">
-                        <div class="flex flex-col min-w-0 flex-grow">
-                            <span class="font-semibold text-xs ${isDark ? 'text-white' : 'text-gray-950'} truncate tracking-wide">${name}</span>
-                            <span class="text-[11px] text-[#C5A880]">${item.Price.toLocaleString()} IQD</span>
-                        </div>
-                    </div>
-                    <div class="flex items-center bg-[#0c0d12] dark:bg-[#0c0d12] light:bg-white border border-gray-800 dark:border-gray-800 light:border-gray-200 rounded-lg p-0.5 mx-2">
-                        <button onclick="changeQuantity(${item.id}, -1)" class="w-5 h-5 flex items-center justify-center text-gray-500 font-bold text-xs">-</button>
-                        <span class="px-2 text-xs font-bold ${isDark ? 'text-white' : 'text-gray-900'} min-w-[16px] text-center">${item.quantity}</span>
-                        <button onclick="changeQuantity(${item.id}, 1)" class="w-5 h-5 flex items-center justify-center text-gray-500 font-bold text-xs">+</button>
-                    </div>
-                `;
-                container.appendChild(row);
-            });
-            document.getElementById('cart-total-price').innerText = `${totalPrice.toLocaleString()} IQD`;
+            // Add your cart updating logic here if needed
         }
 
-        function toggleCartModal() { document.getElementById('cart-modal').classList.toggle('hidden'); }
-        function openCheckoutModal() { if(cart.length === 0) return; toggleCartModal(); document.getElementById('checkout-modal').classList.remove('hidden'); }
-        function closeCheckoutModal() { document.getElementById('checkout-modal').classList.add('hidden'); }
-
-        function submitOrder(event) {
-            event.preventDefault(); const name = document.getElementById('cust-name').value;
-            let msg = `Thank you, ${name}!`;
-            if(currentLang === 'KU') msg = `سوپاس بۆ تە ${name}!`;
-            if(currentLang === 'AR') msg = `شكراً لك ${name}!`;
-            alert(msg); cart = []; updateCartUI(); document.getElementById('order-form').reset(); closeCheckoutModal();
-        }
-
-        window.onclick = function(event) {
-            if (!event.target.matches('button') && !event.target.matches('svg') && !event.target.matches('path')) {
-                const dropdown = document.getElementById('lang-dropdown');
-                if (dropdown && !dropdown.classList.contains('hidden')) { dropdown.classList.add('hidden'); }
-            }
-        }
-
-        fetchMenuData();
+        window.onload = fetchMenuData;
     </script>
 </body>
 </html>
